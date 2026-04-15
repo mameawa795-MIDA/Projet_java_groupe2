@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.ReservationController"
+      spacing="0"
+      style="-fx-background-color: #f4f6f8;">
+
+    <!-- 🔷 HEADER -->
+    <VBox style="-fx-background-color: linear-gradient(to right, #4e6a8e, #2f4f6f); -fx-padding: 20;"
+          alignment="CENTER">
+
+        <Label text="🏨 GESTION DE L'HÔTEL"
+               style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;" />
+
+        <Label text="Application de réservation"
+               style="-fx-text-fill: #dfe6ee; -fx-font-size: 14px;" />
+    </VBox>
+
+    <!-- 🔽 CONTENU -->
+    <VBox spacing="10" style="-fx-padding: 20;">
+
+        <!-- ONGLETS -->
+        <TabPane>
+
+            <tabs>
+
+                <!-- CLIENTS -->
+                <Tab text="Clients">
+                    <HBox spacing="20" alignment="TOP_LEFT">
+
+                        <!-- FORMULAIRE -->
+                        <VBox spacing="10"
+                              style="-fx-background-color: white; -fx-padding: 15; -fx-border-color: #ddd; -fx-border-radius: 5; -fx-background-radius: 5;"
+                              prefWidth="300">
+
+                            <Label text="Gestion des Clients"
+                                   style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+
+                            <Label text="Nom"/>
+                            <TextField fx:id="txtNom"/>
+
+                            <Label text="Prénom"/>
+                            <TextField fx:id="txtPrenom"/>
+
+                            <Label text="Téléphone"/>
+                            <TextField fx:id="txtTelephone"/>
+
+                            <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+
+                                <Button text="Ajouter"
+                                        onAction="#ajouterClient"
+                                        style="-fx-background-color: #4CAF50; -fx-text-fill: white;" />
+
+                                <Button text="Modifier"
+                                        onAction="#modifierClient"
+                                        style="-fx-background-color: #FF9800; -fx-text-fill: white;" />
+
+                                <Button text="Supprimer"
+                                        onAction="#supprimerClient"
+                                        style="-fx-background-color: #F44336; -fx-text-fill: white;" />
+
+                            </HBox>
+
+                        </VBox>
+
+                        <!-- TABLE -->
+                        <TableView fx:id="tableClients"
+                                   onMouseClicked="#selectionClient"
+                                   prefWidth="500"
+                                   style="-fx-background-color: white; -fx-border-color: #ddd;">
+
+                            <columns>
+                                <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+                                <TableColumn fx:id="colNom" text="Nom" prefWidth="150"/>
+                                <TableColumn fx:id="colPrenom" text="Prénom" prefWidth="150"/>
+                                <TableColumn fx:id="colTelephone" text="Téléphone" prefWidth="200"/>
+                            </columns>
+
+                        </TableView>
+
+                    </HBox>
+                </Tab>
+
+                <!-- CHAMBRES -->
+                <Tab text="Chambres">
+                    <HBox spacing="20" style="-fx-padding: 20;">
+
+                        <!-- FORMULAIRE -->
+                        <VBox spacing="10"
+                              style="-fx-background-color: white; -fx-padding: 15; -fx-border-color: #ddd; -fx-border-radius: 5; -fx-background-radius: 5;"
+                              prefWidth="300">
+
+                            <Label text="Gestion des Chambres"
+                                   style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+                            <Label text="Numéro"/>
+                            <TextField fx:id="txtNumero"/>
+
+                            <Label text="Type"/>
+                            <TextField fx:id="txtType"/>
+
+                            <Label text="Prix par nuit"/>
+                            <TextField fx:id="txtPrix"/>
+
+                            <CheckBox fx:id="checkDisponible" text="Disponible"/>
+
+                            <HBox spacing="10">
+                                <Button text="Ajouter" onAction="#ajouterChambre"
+                                        style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+                                <Button text="Modifier" onAction="#modifierChambre"
+                                        style="-fx-background-color: #FF9800; -fx-text-fill: white;"/>
+                                <Button text="Supprimer" onAction="#supprimerChambre"
+                                        style="-fx-background-color: #F44336; -fx-text-fill: white;"/>
+                            </HBox>
+
+                        </VBox>
+
+                        <!-- TABLE -->
+                        <TableView fx:id="tableChambres" onMouseClicked="#selectionChambre" prefWidth="500">
+
+                            <columns>
+                                <TableColumn fx:id="colIdCh" text="ID"/>
+                                <TableColumn fx:id="colNumero" text="Numéro"/>
+                                <TableColumn fx:id="colType" text="Type"/>
+                                <TableColumn fx:id="colPrix" text="Prix nuit"/>
+                                <TableColumn fx:id="colDisponible" text="Disponible"/>
+                            </columns>
+
+                        </TableView>
+
+                    </HBox>
+                </Tab>
+                <!-- RÉSERVATIONS -->
+                <Tab text="Réservations">
+
+                    <HBox spacing="20" style="-fx-padding: 20;" alignment="TOP_LEFT">
+
+                        <!-- FORMULAIRE -->
+                        <VBox spacing="10"
+                              style="-fx-background-color: white; -fx-padding: 15;
+                     -fx-border-color: #ddd; -fx-border-radius: 5;
+                     -fx-background-radius: 5;"
+                              prefWidth="300">
+
+                            <Label text="Gestion des Réservations"
+                                   style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+
+                            <!-- CLIENT -->
+                            <Label text="Client"/>
+                            <ComboBox fx:id="comboClient"/>
+
+                            <!-- CHAMBRE -->
+                            <Label text="Chambre"/>
+                            <ComboBox fx:id="comboChambre"/>
+
+                            <!-- DATES -->
+                            <Label text="Date début"/>
+                            <DatePicker fx:id="dateDebut"/>
+
+                            <Label text="Date fin"/>
+                            <DatePicker fx:id="dateFin"/>
+
+                            <!-- BOUTONS -->
+                            <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+
+                                <Button text="Réserver"
+                                        onAction="#ajouterReservation"
+                                        style="-fx-background-color: #4CAF50; -fx-text-fill: white;" />
+
+                                <Button text="Annuler"
+                                        onAction="#supprimerReservation"
+                                        style="-fx-background-color: #F44336; -fx-text-fill: white;" />
+
+                            </HBox>
+
+                        </VBox>
+
+                        <!-- TABLE -->
+                        <TableView fx:id="tableReservations"
+                                   prefWidth="500"
+                                   style="-fx-background-color: white; -fx-border-color: #ddd;">
+
+                            <columns>
+                                <TableColumn fx:id="colClient" text="Client" prefWidth="120"/>
+                                <TableColumn fx:id="colChambre" text="Chambre" prefWidth="120"/>
+                                <TableColumn fx:id="colDebut" text="Début" prefWidth="120"/>
+                                <TableColumn fx:id="colFin" text="Fin" prefWidth="120"/>
+                            </columns>
+
+                        </TableView>
+
+                    </HBox>
+
+                </Tab>
+
+            </tabs>
+
+        </TabPane>
+
+    </VBox>
+
+</VBox>
