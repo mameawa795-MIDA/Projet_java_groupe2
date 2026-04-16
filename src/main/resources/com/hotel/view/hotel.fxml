@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.hotel.controller.ReservationController"
+            styleClass="main-root">
+
+    <top>
+        <Label text="Gestion des Réservations d'Hôtel"
+               styleClass="title-label"
+               BorderPane.alignment="CENTER"/>
+    </top>
+
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE" styleClass="main-tabpane">
+            <tabs>
+
+                <!-- CLIENTS -->
+                <Tab text="Clients">
+                    <content>
+                        <VBox spacing="12">
+                            <padding>
+                                <Insets top="15" right="15" bottom="15" left="15"/>
+                            </padding>
+
+                            <Label text="Gestion des clients" styleClass="section-title"/>
+
+                            <GridPane hgap="10" vgap="10">
+                                <Label text="Nom :" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                <TextField fx:id="txtNom" promptText="Nom" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                                <Label text="Prénom :" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                <TextField fx:id="txtPrenom" promptText="Prénom" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                                <Label text="Téléphone :" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                <TextField fx:id="txtTelephone" promptText="Téléphone" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                            </GridPane>
+
+                            <HBox spacing="10">
+                                <Button text="Ajouter" onAction="#onAjouterClient"/>
+                                <Button text="Modifier" onAction="#onModifierClient"/>
+                                <Button text="Supprimer" onAction="#onSupprimerClient"/>
+                                <Button text="Vider" onAction="#onViderClient"/>
+                            </HBox>
+
+                            <TableView fx:id="tableClients" prefHeight="420">
+                                <columns>
+                                    <TableColumn fx:id="colClientId" text="ID" prefWidth="70"/>
+                                    <TableColumn fx:id="colClientNom" text="Nom" prefWidth="180"/>
+                                    <TableColumn fx:id="colClientPrenom" text="Prénom" prefWidth="180"/>
+                                    <TableColumn fx:id="colClientTelephone" text="Téléphone" prefWidth="180"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
+                    </content>
+                </Tab>
+
+                <!-- CHAMBRES -->
+                <Tab text="Chambres">
+                    <content>
+                        <VBox spacing="12">
+                            <padding>
+                                <Insets top="15" right="15" bottom="15" left="15"/>
+                            </padding>
+
+                            <Label text="Gestion des chambres" styleClass="section-title"/>
+
+                            <GridPane hgap="10" vgap="10">
+                                <Label text="Numéro :" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                <TextField fx:id="txtNumero" promptText="Numéro chambre" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                                <Label text="Type :" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                <TextField fx:id="txtType" promptText="Simple / Double / Suite" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                                <Label text="Prix / nuit :" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                <TextField fx:id="txtPrix" promptText="Prix" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                                <Label text="Disponible :" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                <CheckBox fx:id="chkDisponible" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                            </GridPane>
+
+                            <HBox spacing="10">
+                                <Button text="Ajouter" onAction="#onAjouterChambre"/>
+                                <Button text="Modifier" onAction="#onModifierChambre"/>
+                                <Button text="Supprimer" onAction="#onSupprimerChambre"/>
+                                <Button text="Vider" onAction="#onViderChambre"/>
+                            </HBox>
+
+                            <TableView fx:id="tableChambres" prefHeight="420">
+                                <columns>
+                                    <TableColumn fx:id="colChambreId" text="ID" prefWidth="70"/>
+                                    <TableColumn fx:id="colChambreNumero" text="Numéro" prefWidth="150"/>
+                                    <TableColumn fx:id="colChambreType" text="Type" prefWidth="170"/>
+                                    <TableColumn fx:id="colChambrePrix" text="Prix/Nuit" prefWidth="150"/>
+                                    <TableColumn fx:id="colChambreDisponible" text="Disponible" prefWidth="140"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
+                    </content>
+                </Tab>
+
+                <!-- RESERVATIONS -->
+                <Tab text="Réservations">
+                    <content>
+                        <VBox spacing="12">
+
+                            <padding>
+                                <Insets top="15" right="15" bottom="15" left="15"/>
+                            </padding>
+
+                            <Label text="Gestion des réservations" styleClass="section-title"/>
+
+                            <GridPane hgap="10" vgap="10">
+                                <Label text="Client :" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                <ComboBox fx:id="cbClient" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                                <Label text="Chambre :" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                <ComboBox fx:id="cbChambre" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                                <Label text="Date début :" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                <DatePicker fx:id="dpDateDebut" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                                <Label text="Date fin :" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                <DatePicker fx:id="dpDateFin" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                            </GridPane>
+
+                            <Label fx:id="lblMontant" text="Montant estimé : 0.00 DH"/>
+
+                            <HBox spacing="10">
+                                <Button text="Afficher chambres disponibles" onAction="#onAfficherChambresDisponibles"/>
+                                <Button text="Réserver" onAction="#onReserver"/>
+                                <Button text="Annuler réservation" onAction="#onAnnulerReservation"/>
+                            </HBox>
+
+                            <TableView fx:id="tableReservations" prefHeight="380">
+                                <columns>
+                                    <TableColumn fx:id="colReservationId" text="ID" prefWidth="60"/>
+                                    <TableColumn fx:id="colReservationClient" text="Client" prefWidth="180"/>
+                                    <TableColumn fx:id="colReservationChambre" text="Chambre" prefWidth="100"/>
+                                    <TableColumn fx:id="colReservationDateDebut" text="Date début" prefWidth="120"/>
+                                    <TableColumn fx:id="colReservationDateFin" text="Date fin" prefWidth="120"/>
+                                    <TableColumn fx:id="colReservationMontant" text="Montant total" prefWidth="140"/>
+                                </columns>
+                            </TableView>
+
+                        </VBox>
+                    </content>
+                </Tab>
+
+            </tabs>
+        </TabPane>
+    </center>
+
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+</BorderPane>
