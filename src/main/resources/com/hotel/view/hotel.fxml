@@ -127,14 +127,20 @@
                                 <DatePicker fx:id="dpDateFin" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
                             </GridPane>
 
-                            <Label fx:id="lblMontant" text="Montant estimé : 0.00 DH"/>
+                            <Label fx:id="lblMontant" text="Montant estimé : 0.00 DH" styleClass="montant-label"/>
+
 
                             <HBox spacing="10">
                                 <Button text="Afficher chambres disponibles" onAction="#onAfficherChambresDisponibles"/>
                                 <Button text="Réserver" onAction="#onReserver"/>
                                 <Button text="Annuler réservation" onAction="#onAnnulerReservation"/>
                             </HBox>
-
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Filtrer par client :" />
+                                <ComboBox fx:id="cbFiltreClient" prefWidth="250" />
+                                <Button text="Afficher réservations" onAction="#onAfficherReservationsClient" />
+                                <Button text="Afficher toutes" onAction="#onAfficherToutesReservations" />
+                            </HBox>
                             <TableView fx:id="tableReservations" prefHeight="380">
                                 <columns>
                                     <TableColumn fx:id="colReservationId" text="ID" prefWidth="60"/>
